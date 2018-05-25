@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="author" content="Wild Code School">
+    <meta name="description" content="Un grand choix de perruques femme synthétiques ou naturels, perruques homme ou perruques enfant et des prothésistes capillaires professionnels. En boutique, à l'hôpital ou à domicile dans le Nord Pas-de-Calais notre équipe se déplace avec un choix important de  prothèses capillaires, des bonnets et turbans. Le devis est gratuit. Nous sommes agréés Sécurité Sociale.">
+    <meta name="keywords" content="perruque femme, perruque naturelle, perruque médicale, perruque à domicile, prothésiste capillaire">
+    <title>Mon espace perruques</title>
+
+
+    <!-- Include the favicon -->
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/image/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/image/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/image/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/image/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/image/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/contact.css">
+    <link rel="stylesheet" href="/assets/css/navbar_and_footer_style.css">
+</head>
+<body>
+<header>
+    {% include 'Item/navbar.html.twig' %}
+</header>
+
+<!-- Calendar Section -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <section id="calendar">
+                <h2>Rendez-vous en ligne</h2>
+                <!-- Calendly inline widget begin -->
+                <div class="calendly-inline-widget" data-url="https://calendly.com/1001perruques/90min"></div>
+                <script src="https://assets.calendly.com/assets/external/widget.js"></script>
+                <!-- Calendly inline widget end -->
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Contact-form Section -->
+<section id="contact">
+    <h2>Formulaire de contact</h2>
+    {% if session.success is defined %}
+        <p class="succes"> Votre message a bien été envoyé.</p>
+    {% endif %}
+
+    <div class="container text-center">
+        <form method="POST" action="/rendezvous/file" id="contact-form">
+            <div class="row">
+                <div class="col-sm-6 unique">
+                    <label for="lastname" class="col-sm-12">Nom
+                        <input type="text" name="lastname" id="lastname" maxlength="32" placeholder="Entrez votre nom" required value="{% if session.inputs.lastname %}{{ session.inputs.lastname }}{% endif %}">
+                    </label>
+                    <div>
+                        <p class="error alert-danger">{% if session.errors.lastname %}{{session.errors.lastname}}{% endif %}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 unique">
+                    <label for="firstname" class="col-sm-12">Prénom
+                        <input type="text" name="firstname" id="firstname" maxlength="32" placeholder="Entrez votre prénom" required value="{% if session.inputs.firstname %}{{ session.inputs.firstname }}{% endif %}">
+                    </label>
+                    <div>
+                        <p class="error alert-danger">{% if session.errors.firstname%}{{session.errors.firstname}} {% endif %}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 unique">
+                    <label for="email" class="col-sm-12">Email
+                        <input type="email" name="email" id="email" placeholder="exemple@exemple.com" required value="{% if session.inputs.email %}{{ session.inputs.email }}{% endif %}">
+                    </label>
+                    <div>
+                        <p class="error alert-danger">{% if session.errors.email%}{{ session.errors.email}} {% endif %}</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 unique">
+                    <label for="phone" class="col-sm-12">Téléphone
+                        <input type="tel" name="phone" id="phone" placeholder="06 xx xx xx xx" required value="{% if session.inputs.phone%}{{session.inputs.phone}}{% endif %}">
+                    </label>
+                    <div>
+                        <p class="error alert-danger">{% if session.errors.phone %}{{session.errors.phone}}{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align">
+                <label class="Object" for="Objet">Objet</label><br />
+                <select id="Objet" name="Objet">
+                    <option value="Rendez-vous à domicile">Rendez-vous à domicile</option>
+                    <option value="Rendez-vous en boutique">Rendez-vous en boutique</option>
+                    <option value="Demande de devis">Demande de devis</option>
+                    <option value="autre">Autre</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 unique">
+                    <label for="message" class="col-sm-12">Votre message
+                        <textarea name="message" id="message" maxlength="600" required>{% if session.inputs.message %}{{ session.inputs.message }}{% endif %}</textarea>
+                    </label>
+                    <div>
+                        <p class="error alert-danger">{% if session.errors.message %}{{session.errors.message}} {% endif %}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn-unique" id="submit">Envoyer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- End contact-form Section -->
+
+<!-- Include the footer -->
+{% include 'Item/footer.html.twig' %}
+
+<!--General libraries JS-->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!-- Calendly badge widget begin -->
+<script>
+    if (screen && screen.width > 767) {
+        document.write('<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">');
+        document.write('<script src="https://assets.calendly.com/assets/external/widget.js"><\/script>');
+        document.write('<script>Calendly.initBadgeWidget({url: \'https://calendly.com/1001perruques/90min\', text: \'Prendre un rendez-vous\', color: \'#d3ad62\', branding: true});<\/script>');
+    }
+</script>
+<!-- Calendly badge widget end -->
+</body>
+</html>
